@@ -12,8 +12,10 @@ describe('multiply', () => {
         try {
             Operand.multiply("string", 5);
             assert.fail("It should throw an error");
-        } catch (e: any) {
-            expect(e.message).toBe("Invalid input, it should be a number");
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                expect(e.message).toBe("Invalid input, it should be a number");
+            }
         }
     });
 })

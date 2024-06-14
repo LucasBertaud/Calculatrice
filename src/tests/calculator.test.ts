@@ -29,9 +29,10 @@ describe('calculator', () => {
         try {
             new Calculator("test");
             assert.fail("should throw an error");
-        } catch (e: any) {
-            console.log(e.message)
-            expect(e.message).toBe("Invalid operation, it should return a number");
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                expect(e.message).toBe("Invalid operation, it should return a number");
+            }
         }
     });
 
@@ -39,9 +40,10 @@ describe('calculator', () => {
         try {
             new Calculator("5 ++ 4");
             assert.fail("should throw an error");
-        } catch (e: any) {
-            console.log(e.message)
-            expect(e.message).toBe("Invalid operation, it should return a number");
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                expect(e.message).toBe("Invalid operation, it should return a number");
+            }
         }
     });
 });

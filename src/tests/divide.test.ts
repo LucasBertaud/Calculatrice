@@ -12,8 +12,10 @@ describe('divide', () => {
         try {
             Operand.divide(1, "test");
             assert.fail("It should throw an error");
-        } catch (e: any) {
-            expect(e.message).toBe("Invalid input, it should be a number");
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                expect(e.message).toBe("Invalid input, it should be a number");
+            }
         }
     });
 
@@ -21,8 +23,10 @@ describe('divide', () => {
         try {
             Operand.divide(0, 0);
             assert.fail("It should throw an error");
-        } catch (e: any) {
-            expect(e.message).toBe("Invalid input, division by zero");
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+               expect(e.message).toBe("Invalid input, division by zero");
+            }
         }
     });
 })
