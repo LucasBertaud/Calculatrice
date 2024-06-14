@@ -1,5 +1,5 @@
 import {describe, it, expect, assert} from 'vitest';
-import Calculator from '../utils/calculator';
+import Calculator from '../calculator';
 
 describe('calculator', () => {
     let calculator : Calculator;

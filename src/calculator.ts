@@ -1,6 +1,6 @@
 import { HttpForbidden } from "@httpx/exception";
-import Operand from "./operand";
-import Regex from "./regex";
+import Operand from "./utils/operand";
+import Regex from "./utils/regex";
 
 export default class Calculator 
 {   

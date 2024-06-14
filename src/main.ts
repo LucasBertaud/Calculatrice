@@ -1,24 +1,47 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import setupInput from './input'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
+<div class="calculator">
+  <div class="input" id="input"></div>
+  <div class="buttons">
+    <div class="topPanel">
+      <div class="operators" onClick="">
+        <div class="btn">+</div>
+        <div class="btn">-</div>
+        <div class="btn">&times;</div>
+        <div class="btn">&divide;</div>
+      </div>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
+    <div class="bottomPanel">
+      <div class="leftPanel">
+        <div class="numbers">
+          <div class="btn">7</div>
+          <div class="btn">8</div>
+          <div class="btn">9</div>
+        </div>
+        <div class="numbers">
+          <div class="btn">4</div>
+          <div class="btn">5</div>
+          <div class="btn">6</div>
+        </div>
+        <div class="numbers">
+          <div class="btn">1</div>
+          <div class="btn">2</div>
+          <div class="btn">3</div>
+        </div>
+        <div class="numbers">
+          <div class="btn">0</div>
+          <div class="btn">.</div>
+          <div class="btn" id="clear">C</div>
+        </div>
+      </div>
+      <div class="rightPanel">
+        <div class="equal btn" id="result">=</div>
+      </div>
+    </div>
   </div>
+</div>
 `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+setupInput(document.querySelector<HTMLDivElement>('#input')!)
