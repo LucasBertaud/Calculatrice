@@ -52,8 +52,11 @@ export default class Calculator
             }
         }
 
+        if (Regex.findAnyCharacterNotNumber.test(operation)) {
+            throw new HttpForbidden("Invalid operation, it should return a number");
+        }
+
         if (isNaN(parseFloat(operation))) {
-            console.log("i enter in the exception")
             throw new HttpForbidden("Invalid operation, it should return a number");    
         }
 

@@ -25,9 +25,19 @@ describe('calculator', () => {
         expect(calculator.getResult()).toBeTypeOf('number');
     });
 
-    it('should throw an error if the operation is invalid', () => {
+    it('should throw an error if the operation is invalid because of non-numeric character', () => {
         try {
             const calculator = new Calculator("test");
+            assert.fail("should throw an error");
+        } catch (e: any) {
+            console.log(e.message)
+            expect(e.message).toBe("Invalid operation, it should return a number");
+        }
+    });
+
+    it('should throw an error if the operation is invalid because of strange operand', () => {
+        try {
+            const calculator = new Calculator("5 ++ 4");
             assert.fail("should throw an error");
         } catch (e: any) {
             console.log(e.message)
