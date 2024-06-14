@@ -16,7 +16,6 @@ export default function setupInput(input: HTMLDivElement){
     const result = () => {
         try {
             const result = new Calculator(input.innerHTML).getResult();
-            console.log(result);
             input.innerHTML = result.toString();
         } catch (e){
             input.innerHTML = "Error";

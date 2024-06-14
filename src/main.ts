@@ -16,6 +16,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <div class="bottomPanel">
       <div class="leftPanel">
         <div class="numbers">
+          <div class="btn">(</div>
+          <div class="btn">)</div>
+        </div>
+        <div class="numbers">
           <div class="btn">7</div>
           <div class="btn">8</div>
           <div class="btn">9</div>

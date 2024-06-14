@@ -96,15 +96,20 @@ div.bottomPanel{
   gap: 2rem;
 }
 
+div.rightPanel {
+  align-self: center;
+  overflow: hidden;
+}
+
 div.equal {
-  display: inline-block;
+  display: block;
   border: 1px solid #3079ED;
   border-radius: 1px;
-  width: 100%;
+  width: 3rem;
+  height: 100%;
   text-align: center;
   padding: 127px 10px;
   margin: 10px 6px 10px 0;
-  vertical-align: top;
   cursor: pointer;
   color: #FFF;
   background-color: #4d90fe;

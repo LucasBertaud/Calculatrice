@@ -25,6 +25,13 @@ describe('calculator', () => {
         expect(calculator.getResult()).toBeTypeOf('number');
     });
 
+    it('should calculate with only substractions', () => {
+        calculator = new Calculator("(-42) - 2 - (-5)");
+
+        expect(calculator.getResult()).toBe(39);
+        expect(calculator.getResult()).toBeTypeOf('number');
+    });
+
     it('should throw an error if the operation is invalid because of non-numeric character', () => {
         try {
             new Calculator("test");
