@@ -1,35 +1,86 @@
 import { HttpForbidden } from "@httpx/exception";
+import Operand from "./operand";
+import Regex from "./regex";
 
 export default class Calculator 
-{    
-    public static add(a: number, b: number): number {
-        if (isNaN(a) || isNaN(b)){
-            throw new HttpForbidden("Invalid input, it should be a number");
-        }
-        return a + b;
+{   
+    private result : number = 0;
+    
+    constructor(operation: string) {
+        this.calculate(operation);
     }
 
-    public static divide(a: number, b: number): number {
-        if (isNaN(a) || isNaN(b)){
-            throw new HttpForbidden("Invalid input, it should be a number");
+    private calculate(operation: string) : void {
+        // priorité des parenthèses avec lecture de gauche à droite
+        while(Regex.WithoutParenthesis.test(operation)){
+            const matchWithoutParenthesis = operation.match(Regex.WithoutParenthesis);
+            const matchWithParenthesis = operation.match(Regex.WithParenthesis);
+
+            if(matchWithoutParenthesis && matchWithParenthesis){
+                const operand = matchWithoutParenthesis[0].match(Regex.findOperand);
+                if (operand) {
+                    const numbers = matchWithoutParenthesis[0].split(operand[0]);
+                    const result = this.operand(operand[0], parseFloat(numbers[0]), parseFloat(numbers[1]));
+                    operation = operation.replace(matchWithParenthesis[0], result.toString());
+                }
+            }
         }
-        if (b === 0 && a === 0) {
-            throw new HttpForbidden("Invalid input, division by zero");
+
+        // priorité des multiplications et divisions avec lecture de gauche à droite
+        while(Regex.MultiplyOrDivide.test(operation)){
+            const match = operation.match(Regex.MultiplyOrDivide);
+            if (match) {
+                const operand = match[0].match(Regex.findOperand);
+                if (operand) {
+                    const numbers = match[0].split(operand[0]);
+                    const result = this.operand(operand[0], parseFloat(numbers[0]), parseFloat(numbers[1]));
+                    operation = operation.replace(match[0], result.toString());
+                }
+            }
         }
-        return a / b;
+
+        // priorité des additions et soustractions avec lecture de gauche à droite
+        while(Regex.AddOrSubtract.test(operation)){
+            const match = operation.match(Regex.AddOrSubtract);
+            if (match) {
+                const operand = match[0].match(Regex.findOperand);
+                if (operand) {
+                    const numbers = match[0].split(operand[0]);
+                    const result = this.operand(operand[0], parseFloat(numbers[0]), parseFloat(numbers[1]));
+                    operation = operation.replace(match[0], result.toString());
+                }
+            }
+        }
+
+        if (isNaN(parseFloat(operation))) {
+            console.log("i enter in the exception")
+            throw new HttpForbidden("Invalid operation, it should return a number");    
+        }
+
+        this.setResult(parseFloat(operation));
     }
 
-    public static multiply(a: number, b: number): number {
-        if (isNaN(a) || isNaN(b)){
-            throw new HttpForbidden("Invalid input, it should be a number");
+    private operand(operand: string, a: number, b: number): number {
+        switch(operand){
+            case "+":
+                return Operand.add(a, b);
+            case "-":
+                return Operand.subtract(a, b);
+            case "*":
+                return Operand.multiply(a, b);
+            case "/":
+                return Operand.divide(a, b);
+            default:
+                throw new HttpForbidden("Invalid operand");
         }
-        return a * b;
     }
 
-    public static subtract(a: number, b: number): number {
-        if (isNaN(a) || isNaN(b)){
-            throw new HttpForbidden("Invalid input, it should be a number");
-        }
-        return a - b;
+    private setResult(result: number): Calculator {
+        this.result = result;
+        return this;
+    }
+
+    public getResult(): number {
+        return this.result;
     }
 }
