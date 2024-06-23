@@ -13,7 +13,7 @@ export default class Operand
         if (isNaN(a) || isNaN(b)){
             throw new HttpForbidden("Invalid input, it should be a number");
         }
-        if (b === 0 && a === 0) {
+        if (b === 0) {
             throw new HttpForbidden("Invalid input, division by zero");
         }
         return a / b;
